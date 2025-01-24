@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actia</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style4.css') }}">
+</head>
+
+<body>
+    <section>
+
+        <!-- Registration Form Container -->
+        <div class="signin">
+            <div class="content">
+                <!-- Centered logo -->
+                <div style="text-align: center;">
+                    <img src="{{ url_for('static', filename='images/chatbot.png') }}" alt="Chatbot Logo" style="width: 160px; height: auto;">
+                </div>
+
+                <!-- Title -->
+                <h2>Create an account</h2>
+
+                <!-- Registration Form -->
+                <form id="registerForm" method="POST" class="form" action="">
+                    {{ form.hidden_tag() }}
+
+                    <!-- Username Input Box -->
+                    <div class="inputBox">
+                        {{ form.username.label }}
+                        {{ form.username }}
+                    </div>
+                    <!-- Display validation errors for username -->
+                    {% if form.username.errors %}
+                    <div class="error">{{ form.username.errors[0] }}</div>
+                    {% endif %}
+
+                    <!-- Email Input Box -->
+                    <div class="inputBox">
+                        {{ form.email.label }}
+                        {{ form.email }}
+                    </div>
+                    <!-- Display validation errors for email -->
+                    {% if form.email.errors %}
+                    <div class="error">{{ form.email.errors[0] }}</div>
+                    {% endif %}
+
+                    <!-- Password Input Box -->
+                    <div class="inputBox">
+                        {{ form.password.label }}
+                        {{ form.password }}
+                    </div>
+                    <!-- Display validation errors for password -->
+                    {% if form.password.errors %}
+                    <div class="error">{{ form.password.errors[0] }}</div>
+                    {% endif %}
+
+                    <!-- Link to login page if the user already has an account -->
+                    <div class="links" style="color: white;">
+                        Do you have an account?
+                        <a href="{{ url_for('login') }}">Login</a>
+                    </div>
+
+                    <!-- Register Button -->
+                    <div class="inputBox">
+                        {{ form.submit(class_='btn') }}
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+    </section>
+</body>
+
+</html>

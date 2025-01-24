@@ -1,0 +1,93 @@
+/* style.css */
+
+/* Styling for the chat container */
+.chat-container {
+    background-color: #000; /* Black background */
+    color: #fff; /* White text color */
+    padding: 20px;
+    border-radius: 10px;
+    overflow-y: auto;
+    max-height: 80vh; /* Adjust as needed */
+}
+
+/* Styling for chat bubbles */
+.chat-message-container {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap; /* Ensure content wraps within the container */
+    width: 100%;
+}
+
+.user-message .chat-bubble,
+.bot-message .chat-bubble {
+    background-color: #333; /* Dark grey background for chat bubbles */
+    color: #fff; /* White text color */
+    padding: 10px;
+    border-radius: 5px;
+    max-width: 70%; /* Allow chat bubbles to resize within container */
+    word-wrap: break-word; /* Break long words */
+    white-space: pre-wrap; /* Ensure text wraps correctly */
+    word-break: break-word; /* Break long words if necessary */
+    overflow-wrap: break-word; /* Ensure long words break correctly */
+    position: relative;
+    flex: 1; /* Ensure chat bubble takes available space */
+}
+
+/* Styling for chat bubble header */
+.chat-bubble-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #444; /* Darker grey background */
+    color: #fff; /* White text color */
+    padding: 5px 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    margin-bottom: 10px;
+}
+
+/* Styling for chat avatars */
+.chat-avatar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+/* Styling for typing animation */
+.typing-animation .typing-dot {
+    background-color: #fff; /* White dots for typing animation */
+}
+
+/* Ensuring Prism.js syntax highlighting is visible on black background */
+pre[class*="language-"] {
+    background: none; /* Remove background to blend with container */
+    color: inherit; /* Inherit text color from container */
+}
+
+/* Optional: Adjusting code block padding and margin */
+pre[class*="language-"] {
+    padding: 10px;
+    margin: 0;
+}
+
+/* Styling for the animated typing effect */
+.typing-effect {
+    display: inline-block;
+    white-space: pre-wrap; /* Preserve white space and wrap as needed */
+}
+
+/* Styling for the copy code button */
+.copy-code-btn {
+    background-color: #444; /* Darker grey background */
+    color: #fff; /* White text color */
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.copy-code-btn:hover {
+    background-color: #555; /* Slightly lighter grey on hover */
+}

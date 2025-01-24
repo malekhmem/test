@@ -1,0 +1,11 @@
+--2024-11-01 15:39:18--  https://dl.winehq.org/wine-builds/winehq.key
+Résolution de dl.winehq.org (dl.winehq.org)… 199.232.82.217, 2a04:4e42:54::729
+Connexion à dl.winehq.org (dl.winehq.org)|199.232.82.217|:443… connecté.
+requête HTTP transmise, en attente de la réponse… 200 OK
+Taille : 3212 (3.1K) [application/pgp-keys]
+Enregistre : ‘STDOUT’
+
+-                               0%[                                                ]       0  --.-KB/s               -                             100%[===============================================>]   3.14K  --.-KB/s    ds 0s      
+
+2024-11-01 15:39:20 (149 MB/s) — envoi vers sortie standard [3212/3212]
+

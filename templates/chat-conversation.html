@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat Interface</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style5.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/themes/prism-okaidia.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body data-chatbot-img="{{ url_for('static', filename='images/chatbot.png') }}">
+    <input type="hidden" id="conversation-id" value="{{ conversation.id }}">
+    <nav class="sidebar">
+        <header>
+            <div class="image-text">
+                <span class="image"></span>
+                <div class="text logo-text">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Chatbot Logo" style="width: 120px; height: auto;">
+                </div>
+            </div>
+            <i class='bx bx-chevron-right toggle'></i>
+        </header>
+        <div class="menu-bar">
+            <div class="menu">
+                <li class="search-box">
+                    <i class='bx bx-search icon'></i>
+                    <input type="text" placeholder="Search...">
+                </li>
+                <ul class="menu-links">
+                    {% for conv in conversations %}
+                    <li class="nav-link">
+                        <a href="{{ url_for('chat_conversation', conversation_id=conv.id) }}">
+                            <i class='bx bx-bar-chart-alt-2 icon'></i>
+                            <span class="text nav-text">{{ conv.title }}</span>
+                        </a>
+                    </li>
+                    {% endfor %}
+                    <li class="nav-link conversation-item" >
+                        <a href="{{ url_for('chat_interface') }}">
+                            <i class='bx bx-plus icon'></i>
+                            <span class="text nav-text">Add Conversation</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="bottom-content">
+                <li>
+                    <a href="{{ url_for('logout') }}">
+                        <i class='bx bx-log-out icon'></i>
+                        <span class="text nav-text">Logout</span>
+                    </a>
+                </li>
+            </div>
+        </div>
+    </nav>
+    <div class="home">
+        <!-- Chats container -->
+        <div class="chat-container">
+            <div class="default-text">
+                <img src="{{ url_for('static', filename='images/act2.png') }}" alt="Chat Interface" style="width: 200px; height: auto;">
+                <p>Start a conversation and explore. Your chat history will be displayed here.</p>
+            </div>
+            {% for message in conversation.messages %}
+            <div class="chat-message-container {{ 'user-message' if message.is_user else 'bot-message' }}">
+                {% if message.is_user %}
+                <div class="profile-circle-small">{{ current_user.username[0].upper() }}</div>
+                {% else %}
+                <div class="chat-avatar">
+                    <img src="{{ url_for('static', filename='images/chatbot.png') }}" alt="Bot">
+                </div>
+                {% endif %}
+                <div class="chat-bubble">
+                    {% if not message.is_user %}
+                    <div class="chat-bubble-header">
+                        <button class="copy-code-btn">Copy</button>
+                    </div>
+                    <pre><code class="language-c">{{ message.content }}</code></pre>
+                    {% else %}
+                    <pre>{{ message.content }}</pre>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div id="chat-interface-image" data-image-url="{{ url_for('static', filename='images/act2.png') }}" style="display: none;"></div>
+        <!-- Typing container -->
+        <div class="typing-container">
+            <div class="typing-content">
+                <div class="typing-textarea">
+                    <textarea id="chat-input" spellcheck="false" placeholder="Type your message here..."></textarea>
+                    <span id="send-btn" class="material-symbols-rounded">send</span>
+                </div>
+                <div class="typing-controls">
+                    <span id="theme-btn" class="material-symbols-rounded">light_mode</span>
+                    <span id="delete-btn" class="material-symbols-rounded">delete</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/components/prism-c.min.js" defer></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+</body>
+</html>

@@ -1,0 +1,453 @@
+/* Import Google font - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+:root {
+  --text-color: #fffdfd;
+  --icon-color: #ACACBE;
+  --icon-hover-bg: #37a750;
+  --placeholder-color: #dcdcdc;
+  --outgoing-chat-bg: #202020;
+  --incoming-chat-bg: #444;
+  --outgoing-chat-border: #343541;
+  --incoming-chat-border: #444;
+  --header-bg-color: #202020;
+  --header-text-color: #FFFFFF;
+  --sidebar-color: #242526;
+  --primary-color: #3a3b3c;
+  --primary-color-light: #3a3b3c;
+  --toggle-color: #fff;
+}
+.light-mode {
+  --text-color: #000000;
+  --icon-color: #a9a9bc;
+  --icon-hover-bg: #37a750;
+  --placeholder-color: #6c6c6c;
+  --outgoing-chat-bg: #ffffff;
+  --incoming-chat-bg: #F7F7F8;
+  --outgoing-chat-border: #FFFFFF;
+  --incoming-chat-border: #D9D9E3;
+  --header-bg-color: #ffffff;
+  --header-text-color: #333333;
+  --sidebar-color: #FFF;
+  --primary-color: #695CFE;
+  --primary-color-light: #F6F5FF;
+  --toggle-color: #DDD;
+}
+body {
+  background: var(--outgoing-chat-bg);
+  color: var(--text-color);
+}
+
+/* Chats container styling */
+.chat-container {
+  overflow-y: auto;
+  max-height: 100vh;
+  padding-bottom: 150px;
+}
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: var(--header-bg-color);
+}
+
+.chat-title {
+  font-size: 24px;
+  color: var(--header-text-color);
+  transition: color 0.3s ease;
+}
+
+.chat-title:hover {
+  color: #00ae4e;
+}
+
+.profile-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-circle {
+  width: 40px;
+  height: 40px;
+  background-color: #00ae4e;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  width: 200px; /* Increase width */
+}
+
+.dropdown-menu.show {
+  display: block;
+}
+
+.dropdown-item {
+  padding: 10px 20px;
+  display: flex; /* Use flex to align items */
+  align-items: center; /* Center align icons and text */
+  color: black;
+  text-decoration: none;
+}
+
+.dropdown-item i {
+  margin-right: 10px; /* Space between icon and text */
+}
+
+.dropdown-item:hover {
+  background-color: #f1f1f1;
+}
+
+:where(.chat-container, textarea)::-webkit-scrollbar {
+  width: 6px;
+}
+:where(.chat-container, textarea)::-webkit-scrollbar-track {
+  background: var(--incoming-chat-bg);
+  border-radius: 25px;
+}
+:where(.chat-container, textarea)::-webkit-scrollbar-thumb {
+  background: var(--icon-color);
+  border-radius: 25px;
+}
+.default-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 70vh;
+  padding: 0 10px;
+  text-align: center;
+  color: var(--text-color);
+}
+.default-text h1 {
+  font-size: 3.3rem;
+}
+.default-text p {
+  margin-top: 10px;
+  font-size: 1.1rem;
+}
+.chat-container .chat {
+  padding: 25px 10px;
+  display: flex;
+  justify-content: center;
+  color: var(--text-color);
+}
+.chat-container .chat.outgoing {
+  background: var(--outgoing-chat-bg);
+  border: 1px solid var(--outgoing-chat-border);
+}
+.chat-container .chat.incoming {
+  background: var(--incoming-chat-bg);
+  border: 1px solid var(--incoming-chat-border);
+}
+.chat .chat-content {
+  display: flex;
+  max-width: 1200px;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+span.material-symbols-rounded {
+  user-select: none;
+  cursor: pointer;
+  font-size: 1.3rem;
+  color: var(--icon-color);
+}
+
+.chat .chat-content span {
+  cursor: pointer;
+  font-size: 1.3rem;
+  color: var(--icon-color);
+  visibility: hidden;
+}
+.chat-message-container {
+  display: flex;
+  margin-bottom: 12px; /* Spacing between messages */
+  align-items: flex-end; /* Aligns items to the bottom */
+}
+
+.user-message {
+  display: flex;
+  align-items: center; /* Center the items vertically */
+  justify-content: flex-end; /* Align items to the right */
+  margin-bottom: 10px; /* Aligns user message to the right */
+}
+
+.user-message .chat-bubble {
+  background-color: #414141; /* Dark grey bubble color */
+  color: #ffffff; /* Black text color */
+  order: -1; /* Makes the bubble appear to the left of the avatar */
+}
+
+.bot-message .chat-bubble {
+  background-color: #333; /* Dark grey bubble color */
+  color: #e6e6e6; /* Black text color */
+}
+
+.chat-avatar img {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  margin: 0 8px; /* Space between the avatar and the bubble */
+}
+
+.chat-bubble {
+  max-width: 80%; /* Adjust width of chat bubble */
+  padding: 10px 12px;
+  border-radius: 18px;
+  margin: 4px; /* Adds space around the message for bubble effect */
+  position: relative; /* Needed for tail adjustment */
+  background-color: #333; /* Dark grey background */
+  color: black; /* Black text color */
+}
+
+/* Create tails for chat bubbles */
+.user-message .chat-bubble::after {
+  position: absolute;
+  right: -10px;
+  top: 0;
+  width: 0;
+  height: 0;
+  border: 15px solid transparent;
+  border-left-color: #333; /* Match bubble color */
+  border-top: 0;
+  border-right: 0;
+  margin-top: -7px;
+  margin-right: -15px;
+}
+
+.bot-message .chat-bubble::after {
+  position: absolute;
+  left: -10px;
+  top: 0;
+  width: 0;
+  height: 0;
+  border: 15px solid transparent;
+  border-right-color: #333; /* Match bubble color */
+  border-top: 0;
+  border-left: 0;
+  margin-top: -7px;
+  margin-left: -15px;
+}
+
+/* Text within bubbles */
+.chat-bubble p {
+  margin: 0; /* Remove default paragraph margins */
+  word-wrap: break-word; /* Ensure long words do not overflow */
+  font-size: 22px;
+}
+
+.chat:hover .chat-content:not(:has(.typing-animation), :has(.error)) span {
+  visibility: visible;
+}
+.chat .chat-details {
+  display: flex;
+  align-items: center;
+}
+.chat .chat-details img {
+  width: 35px;
+  height: 35px;
+  align-self: flex-start;
+  object-fit: cover;
+  border-radius: 2px;
+}
+.chat .chat-details p {
+  white-space: pre-wrap;
+  font-size: 1.05rem;
+  padding: 0 50px 0 25px;
+  color: var(--text-color);
+  word-break: break-word;
+}
+.chat .chat-details p.error {
+  color: #e55865;
+}
+.chat .typing-animation {
+  padding-left: 25px;
+  display: inline-flex;
+}
+.typing-animation .typing-dot {
+  height: 7px;
+  width: 7px;
+  border-radius: 50%;
+  margin: 0 3px;
+  opacity: 0.7;
+  background: var(--text-color);
+  animation: animateDots 1.5s var(--delay) ease-in-out infinite;
+}
+.typing-animation .typing-dot:first-child {
+  margin-left: 0;
+}
+@keyframes animateDots {
+  0%,44% {
+    transform: translateY(0px);
+  }
+  28% {
+    opacity: 0.4;
+    transform: translateY(-6px);
+  }
+  44% {
+    opacity: 0.2;
+  }
+}
+
+/* Typing container styling */
+.typing-container {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  padding: 20px 10px;
+  justify-content: center;
+  background: var(--outgoing-chat-bg);
+  border-top: 1px solid var(--incoming-chat-border);
+}
+.typing-container .typing-content {
+  display: flex;
+  max-width: 950px;
+  width: 100%;
+  align-items: flex-end;
+}
+.typing-container .typing-textarea {
+  width: 100%;
+  display: flex;
+  position: relative;
+}
+.typing-textarea textarea {
+  resize: none;
+  height: 55px;
+  width: 100%;
+  border: none;
+  padding: 15px 45px 15px 20px;
+  color: var(--text-color);
+  font-size: 1rem;
+  border-radius: 4px;
+  max-height: 250px;
+  overflow-y: auto;
+  background: var(--incoming-chat-bg);
+  outline: 1px solid var(--incoming-chat-border);
+}
+.typing-textarea textarea::placeholder {
+  color: var(--placeholder-color);
+}
+.typing-content span {
+  width: 55px;
+  height: 55px;
+  display: flex;
+  border-radius: 4px;
+  font-size: 1.35rem;
+  align-items: center;
+  justify-content: center;
+  color: var(--icon-color);
+}
+.typing-textarea span {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  visibility: hidden;
+}
+.typing-textarea textarea:valid ~ span {
+  visibility: visible;
+}
+.typing-controls {
+  display: flex;
+}
+.typing-controls span {
+  margin-left: 7px;
+  font-size: 1.4rem;
+  background: var(--incoming-chat-bg);
+  outline: 1px solid var(--incoming-chat-border);
+}
+.typing-controls span:hover {
+  background: var(--icon-hover-bg);
+}
+
+/* Reponsive Media Query */
+@media screen and (max-width: 600px) {
+  .default-text h1 {
+    font-size: 2.3rem;
+  }
+  :where(.default-text p, textarea, .chat p) {
+    font-size: 0.95rem!important;
+  }
+  .chat-container .chat {
+    padding: 20px 10px;
+  }
+  .chat-container .chat img {
+    height: 32px;
+    width: 32px;
+  }
+  .chat-container .chat p {
+    padding: 0 20px;
+  }
+  .chat .chat-content:not(:has(.typing-animation), :has(.error)) span {
+    visibility: visible;
+  }
+  .typing-container {
+    padding: 15px 10px;
+  }
+  .typing-textarea textarea {
+    height: 45px;
+    padding: 10px 40px 10px 10px;
+  }
+  .typing-content span {
+    height: 45px;
+    width: 45px;
+    margin-left: 5px;
+  }
+  span.material-symbols-rounded {
+    font-size: 1.25rem!important;
+  }
+}
+
+/* Styling for the animated typing effect */
+.typing-effect {
+  display: inline-block;
+  white-space: pre-wrap; /* Preserve white space and wrap as needed */
+}
+
+/* Styling for the copy code button */
+.copy-code-btn {
+  background-color: #444; /* Darker grey background */
+  color: #fff; /* White text color */
+  border: none;
+  border-radius: 3px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+/* Add this CSS class to style the smaller profile circle */
+.profile-circle-small {
+  width: 45px;
+  height: 45px;
+  background-color: #00ae4e;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  margin-right: 20px; /* Add some space between the circle and the message bubble */
+}
+
+.copy-code-btn:hover {
+  background-color: #555; /* Slightly lighter grey on hover */
+}

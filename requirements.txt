@@ -1,0 +1,10 @@
+torch
+flask
+flask-login
+flask-sqlalchemy
+werkzeug
+transformers
+python-dotenv
+flask-wtf
+wtforms
+torch
