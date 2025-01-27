@@ -4,10 +4,14 @@ from flask import Blueprint, render_template, jsonify, request
 from model import tokenizer, model, generation_config
 from utils import clean_output, log_memory_usage
 from flask_login import login_required, current_user
-from app import db, User, Conversation, Discussion
+#from app import db, User, Conversation, Discussion
+
+from flask import Blueprint, render_template, request, jsonify
+from model import db, User, Conversation, Discussion  # Import models from models.py
 
 chat = Blueprint('chat', __name__)
 
+# Define your chat routes and logic here
 @chat.route('/interface')
 @login_required
 def chat_interface():

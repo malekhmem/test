@@ -6,14 +6,13 @@
   box-sizing: border-box;
   font-family: 'Quicksand', sans-serif;
 }
-body 
-{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: #000;
+body {
+    font-family: Arial, sans-serif;
+    background-color: #00ae4e;
+    margin: 0;
+    padding: 0;
 }
+
 section 
 {
   position: absolute;
@@ -33,7 +32,7 @@ section::before
   width: 100%;
   height: 100%;
   background: linear-gradient(#000,
-  #00ae4e,#000);
+  #34a366,#000);
   animation: animate 5s linear infinite;
 }
 @keyframes animate 
@@ -129,7 +128,7 @@ section .signin .content .form .inputBox label
   border: none;
   outline: none;
   padding: 25px 10px 7.5px;
-  color: #fff;
+  color: #fcfffd;
   font-weight: 500;
   font-size: 18px;
 }
@@ -141,7 +140,7 @@ section .signin .content .form .inputBox input
   outline: none;
   padding: 25px 10px 7.5px;
   border-radius: 4px;
-  color: #fff;
+  color: #fcfffd;
   font-weight: 500;
   font-size: 18px;
   
@@ -152,7 +151,7 @@ section .signin .content .form .inputBox i
   left: 0;
   padding: 15px 10px;
   font-style: normal;
-  color: #aaa;
+  color: #fcfffd;
   transition: 0.5s;
   pointer-events: none;
 }
@@ -163,7 +162,7 @@ section .signin .content .form .inputBox i
 {
   transform: translateY(-7.5px);
   font-size: 0.8em;
-  color: #fff;
+  color: #fcfffd;
 }
 .signin .content .form .links 
 {
@@ -174,7 +173,7 @@ section .signin .content .form .inputBox i
 }
 .signin .content .form .links a 
 {
-  color: #fff;
+  color: #fcfffd;
   text-decoration: none;
 }
 .signin .content .form .links a:nth-child(2)
