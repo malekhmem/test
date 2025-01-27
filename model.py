@@ -38,7 +38,6 @@ class Discussion(db.Model):
     conversation_id = db.Column(db.Integer, db.ForeignKey('conversation.id'), nullable=False)
     content = db.Column(db.Text, nullable=False)
     is_user = db.Column(db.Boolean, default=True)
-
 try:
     tokenizer = AutoTokenizer.from_pretrained(model_name, use_auth_token=huggingface_token)
     if torch.cuda.is_available():

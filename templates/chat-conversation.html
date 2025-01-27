@@ -13,7 +13,7 @@
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body data-chatbot-img="{{ url_for('static', filename='images/chatbot.png') }}">
-    <input type="hidden" id="conversation-id" value="{{ conversation.id }}">
+    <input type="hidden" id="conversation-id" value="{{ conversation_id }}">
     <nav class="sidebar">
         <header>
             <div class="image-text">
@@ -33,27 +33,17 @@
                 <ul class="menu-links">
                     {% for conv in conversations %}
                     <li class="nav-link">
-                        <a href="{{ url_for('chat_conversation', conversation_id=conv.id) }}">
+                        <a href="{{ url_for('chat.chat_conversation', conversation_id=conv.id) }}">
                             <i class='bx bx-bar-chart-alt-2 icon'></i>
                             <span class="text nav-text">{{ conv.title }}</span>
                         </a>
                     </li>
                     {% endfor %}
-                    <li class="nav-link conversation-item" >
-                        <a href="{{ url_for('chat_interface') }}">
-                            <i class='bx bx-plus icon'></i>
-                            <span class="text nav-text">Add Conversation</span>
-                        </a>
-                    </li>
+                   
                 </ul>
             </div>
             <div class="bottom-content">
-                <li>
-                    <a href="{{ url_for('logout') }}">
-                        <i class='bx bx-log-out icon'></i>
-                        <span class="text nav-text">Logout</span>
-                    </a>
-                </li>
+   
             </div>
         </div>
     </nav>
@@ -64,7 +54,7 @@
                 <img src="{{ url_for('static', filename='images/act2.png') }}" alt="Chat Interface" style="width: 200px; height: auto;">
                 <p>Start a conversation and explore. Your chat history will be displayed here.</p>
             </div>
-            {% for message in conversation.messages %}
+            {% for message in messages %}
             <div class="chat-message-container {{ 'user-message' if message.is_user else 'bot-message' }}">
                 {% if message.is_user %}
                 <div class="profile-circle-small">{{ current_user.username[0].upper() }}</div>
