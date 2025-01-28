@@ -36,19 +36,17 @@ def login():
 
         if user and check_password_hash(user.password, password):
             login_user(user)
-            return redirect(url_for('index'))
+            return redirect(url_for('chat_conversation'))  # Redirect to chat-conversation.html
         else:
             flash('Échec de connexion. Veuillez vérifier vos identifiants.', 'danger')
 
     return render_template('login.html', form=form)
-
 
 @auth.route('/logout')
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('auth.login'))
-
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
@@ -73,5 +71,7 @@ def register():
             db.session.commit()
             flash('Votre compte a été créé ! Vous pouvez maintenant vous connecter.', 'success')
             return redirect(url_for('auth.login'))
+
+    return render_template('register.html', form=form)
 
     return render_template('register.html', form=form)

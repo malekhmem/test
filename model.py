@@ -38,7 +38,6 @@ class Discussion(db.Model):
     conversation_id = db.Column(db.Integer, db.ForeignKey('conversation.id'), nullable=False)
     content = db.Column(db.Text, nullable=False)
     is_user = db.Column(db.Boolean, default=True)
-
 try:
     tokenizer = AutoTokenizer.from_pretrained(model_name, use_auth_token=huggingface_token)
     if torch.cuda.is_available():
@@ -62,8 +61,8 @@ except Exception as e:
 
 # Configuration de génération
 generation_config = GenerationConfig(
-    max_length=300,
-    top_p=0.9,
+    max_length=600,
+    top_p=0.7,
     top_k=50,
     early_stopping=True,
     do_sample=True
