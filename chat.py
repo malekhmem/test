@@ -22,9 +22,15 @@ def chat_interface():
 @chat.route('/chat_conversation/<int:conversation_id>')
 @login_required
 def chat_conversation(conversation_id):
-    messages = Discussion.query.filter_by(conversation_id=conversation_id).all()
-    message_list = [{'content': message.content, 'isUser': message.is_user} for message in messages]
-    return jsonify({'status': 'OK', 'messages': message_list})
+    try:
+        messages = Discussion.query.filter_by(conversation_id=conversation_id).all()
+        message_list = [{'content': message.content, 'isUser': message.is_user} for message in messages]
+        print(f"Messages for conversation {conversation_id}: {message_list}")  # Log the messages
+        return jsonify({'status': 'OK', 'messages': message_list})
+    except Exception as e:
+        print(f"Error fetching messages for conversation {conversation_id}: {e}")
+        return jsonify({'status': 'ERROR', 'message': str(e)})
+
 
 @chat.route('/save_message', methods=['POST'])
 @login_required

@@ -10,6 +10,8 @@ from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import InputRequired, Length, ValidationError
 from model import db, User, Conversation, Discussion  # Import models from models.py
 from chat import chat, chatbot
+from auth import auth
+
 
 load_dotenv()
 
@@ -17,6 +19,8 @@ load_dotenv()
 app = Flask(__name__)
 # Register blueprints
 app.register_blueprint(chat, url_prefix='/chat')  # Chat blueprint with /chat prefix
+app.register_blueprint(auth, url_prefix='/auth')  # Auth blueprint with /auth prefix
+
 # Configuration Flask
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///databasetest.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -101,13 +105,11 @@ def dashboard():
 @login_required
 def ask():
     try:
-        # Get message and conversation ID
         message = str(request.form['messageText'])
         conversation_id = request.form.get('conversationId', type=int)
 
         app.logger.debug(f"Received message: {message}")
 
-        # If conversation does not exist, create a new one
         if not conversation_id:
             title = ' '.join(message.split()[:3])
             new_conversation = Conversation(user_id=current_user.id, title=title)
@@ -115,17 +117,14 @@ def ask():
             db.session.commit()
             conversation_id = new_conversation.id
 
-        # Save user message
         user_message = Discussion(conversation_id=conversation_id, content=message, is_user=True)
         db.session.add(user_message)
         db.session.commit()
 
-        # Generate chatbot response
         bot_response = chatbot(message)
         if not bot_response:
             bot_response = "Sorry, the system encountered an issue. Please try again later."
 
-        # Save chatbot response
         bot_message = Discussion(conversation_id=conversation_id, content=bot_response, is_user=False)
         db.session.add(bot_message)
         db.session.commit()
@@ -138,6 +137,13 @@ def ask():
     except Exception as e:
         app.logger.error(f"Error: {e}", exc_info=True)
         return jsonify({'status': 'ERROR', 'answer': f'Sorry, there was an error processing your request: {str(e)}'})
+    
+@app.route('/conversations')
+def conversations():
+    # Récupérez les conversations depuis la base de données
+    conversations = Conversation.query.all()
+    return render_template('conversations.html', conversations=conversations)
+
 
 @app.route('/logout', methods=['GET', 'POST'])
 @login_required

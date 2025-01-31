@@ -11,7 +11,7 @@ auth = Blueprint('auth', __name__)
 
 # Formulaire de connexion
 class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()])
+    username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired(), Length(min=6)])
     submit = SubmitField('Login')
 
@@ -26,13 +26,13 @@ class RegisterForm(FlaskForm):
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
- 
+
     form = LoginForm()
 
     if form.validate_on_submit():  # Utilisation de Flask-WTF pour la validation
-        email = form.email.data
+        username = form.username.data
         password = form.password.data
-        user = User.query.filter_by(email=email).first()
+        user = User.query.filter_by(username=username).first()
 
         if user and check_password_hash(user.password, password):
             login_user(user)
@@ -71,7 +71,5 @@ def register():
             db.session.commit()
             flash('Votre compte a été créé ! Vous pouvez maintenant vous connecter.', 'success')
             return redirect(url_for('auth.login'))
-
-    return render_template('register.html', form=form)
 
     return render_template('register.html', form=form)

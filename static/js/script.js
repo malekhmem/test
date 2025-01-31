@@ -215,4 +215,30 @@ document.addEventListener("DOMContentLoaded", function() {
 
     loadDataFromLocalStorage();
     sendButton.addEventListener("click", handleOutgoingChat);
+
+    // Load conversation messages when a conversation is selected
+    const conversationLinks = document.querySelectorAll('.nav-link a');
+    conversationLinks.forEach(link => {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+            const conversationId = this.getAttribute('href').split('/').pop();
+            console.log("Selected conversation ID:", conversationId);
+            fetch(`/chat_conversation/${conversationId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'OK') {
+                        chatContainer.innerHTML = '';
+                        data.messages.forEach(message => {
+                            const messageElement = createChatElement(message.content, message.isUser);
+                            console.log("Adding message:", message.content);
+                            chatContainer.appendChild(messageElement);
+                        });
+                        chatContainer.scrollTo(0, chatContainer.scrollHeight);
+                    } else {
+                        console.error("Failed to load messages:", data);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    });
 });

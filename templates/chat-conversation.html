@@ -45,11 +45,15 @@
                             <span class="text nav-text">Add Conversation</span>
                         </a>
                     </li>
-                   
                 </ul>
             </div>
             <div class="bottom-content">
-   
+                <li>
+                    <a href="{{ url_for('auth.logout') }}">
+                        <i class='bx bx-log-out icon'></i>
+                        <span class="text nav-text">Logout</span>
+                    </a>
+                </li>
             </div>
         </div>
     </nav>
